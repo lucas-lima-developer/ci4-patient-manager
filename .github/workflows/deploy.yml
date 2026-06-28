@@ -44,3 +44,4 @@ jobs:
             cd /opt/ci4-patient-manager
             docker compose pull
             docker compose up -d
+            docker compose exec -T app php spark migrate
