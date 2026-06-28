@@ -1,0 +1,15 @@
+services:
+  app:
+    image: ghcr.io/lucas-lima-developer/ci4-patient-manager:latest
+    container_name: ci4-patient-manager
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      # .env fica no VPS, nunca dentro da imagem
+      - ./.env:/var/www/html/.env:ro
+      # Persiste logs e cache entre restarts
+      - ./writable:/var/www/html/writable
+    extra_hosts:
+      # Permite que o container acesse o MySQL do próprio VPS
+      - "host.docker.internal:host-gateway"
